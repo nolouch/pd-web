@@ -1,7 +1,10 @@
 import React from 'react'
+import Container from 'components/Container'
 
-const App: React.FC = () => {
-  return <div className="PD-App"></div>
-}
+const App: React.FC = () => (
+  <div className="PD-App">
+    <Container />
+  </div>
+)
 
 export default App

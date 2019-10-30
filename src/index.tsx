@@ -1,3 +1,5 @@
+import 'styles/index.scss'
+
 import * as serviceWorker from './serviceWorker'
 
 import App from './App'
