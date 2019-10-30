@@ -12,7 +12,7 @@ PD Web by PingCAP FE.
 ## How to develop
 
 ```sh
-git clone https://github.com/PingCAP-FE/pd-web.git && cd pd-web
+git clone https://github.com/pingcap-fe/pd-web.git && cd pd-web
 
 # We recommend using yarn
 yarn
@@ -21,4 +21,4 @@ yarn start
 
 ## License
 
-MIT @ PingCAP FE
+MIT @ PingCAP-FE
