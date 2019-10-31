@@ -1,23 +1,15 @@
 import { Menu } from 'semantic-ui-react'
+import { NavLink } from 'react-router-dom'
 import React from 'react'
-import { RouteComponentProps } from 'react-router'
-import { withRouter } from 'react-router-dom'
 
-type TabsProps = RouteComponentProps<{}>
-
-const Tabs: React.FC<TabsProps> = props => {
-  const location = props.location
-  const pathname = location.pathname
-
-  const handleOnMenuItemClick = (pathname: string) => () => props.history.push(pathname)
-
+const Tabs = () => {
   return (
     <Menu as="nav" className="PD-Container-Tabs" size="small" pointing secondary>
-      <Menu.Item name="Cluster" active={pathname === '/cluster'} onClick={handleOnMenuItemClick('/cluster')} />
-      <Menu.Item name="Stores" active={pathname === '/stores'} onClick={handleOnMenuItemClick('/stores')} />
-      <Menu.Item name="Regions" active={pathname === '/regions'} onClick={handleOnMenuItemClick('/regions')} />
+      <Menu.Item as={NavLink} name="Cluster" to="/cluster" activeClassName="active" />
+      <Menu.Item as={NavLink} name="Stores" to="/stores" activeClassName="active" />
+      <Menu.Item as={NavLink} name="Regions" to="/regions" activeClassName="active" />
     </Menu>
   )
 }
 
-export default withRouter(Tabs)
+export default Tabs
