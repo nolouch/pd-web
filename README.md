@@ -44,7 +44,7 @@ yarn start
 
 ## Run tests
 
-Make sure the necessary unit tests.
+Make sure the necessary unit tests passed.
 
 ```sh
 yarn test
