@@ -19,6 +19,14 @@ yarn
 yarn start
 ```
 
+## Run test
+
+Make sure the necessary unit tests.
+
+```sh
+yarn test
+```
+
 ## License
 
 MIT @ PingCAP-FE
