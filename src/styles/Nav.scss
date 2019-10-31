@@ -1,11 +1,14 @@
-.PD-Nav {
-  .site-menu {
-    background: $MainBackgroundColor;
+.ui.menu.PD-Nav {
+  @include no-border-menu;
 
-    .item {
-      .ui.header.title {
-        color: #fff;
-      }
+  margin-bottom: 0;
+  background: $MainBackgroundColor;
+
+  .item.item-title {
+    margin: 0 auto;
+
+    .ui.header.title {
+      color: #fff;
     }
   }
 }

@@ -1,1 +1,6 @@
-$MainBackgroundColor: #2ba5f5;
+$MainBackgroundColor: rgb(58, 79, 248);
+
+@mixin no-border-menu() {
+  border: none;
+  border-radius: 0;
+}

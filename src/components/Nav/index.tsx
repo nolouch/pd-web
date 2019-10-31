@@ -1,14 +1,13 @@
+import { Header, Menu } from 'semantic-ui-react'
+
 import React from 'react'
-import { Menu, Header } from 'semantic-ui-react'
 
 const Nav = () => (
-  <div className="PD-Nav">
-    <Menu className="site-menu" fixed="top" size="small" borderless>
-      <Menu.Item>
-        <Header className="title">PD Dashboard</Header>
-      </Menu.Item>
-    </Menu>
-  </div>
+  <Menu as="nav" className="PD-Nav" size="small" borderless>
+    <Menu.Item className="item-title">
+      <Header className="title">PD Dashboard</Header>
+    </Menu.Item>
+  </Menu>
 )
 
 export default Nav

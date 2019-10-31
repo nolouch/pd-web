@@ -1,2 +1,35 @@
 .PD-Container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .main {
+    display: flex;
+    flex: 1;
+
+    .change-left-width {
+      width: 2px;
+      background: rgba(34, 36, 38, 0.15);
+      cursor: col-resize;
+    }
+
+    .main-right {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      background: #edf1f7;
+
+      .right-main {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.ui.menu.PD-Container-Tabs {
+  margin-bottom: 0;
+
+  .item {
+    cursor: pointer;
+  }
 }
