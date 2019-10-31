@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { connect, useDispatch } from 'react-redux'
 import { getSettings, setContainerMainLeftWidth } from 'api/setting'
 
-import Cluster from 'components/Cluster'
 import Nav from 'components/Nav'
-import Regions from 'components/Regions'
 import { RootState } from 'reducers'
+import { BrowserRouter as Router } from 'react-router-dom'
+import Routes from './Routes'
 import Sidebar from 'components/Sidebar'
-import Stores from 'components/Stores'
 import Tabs from './Tabs'
 
 interface ContainerStateProps {
@@ -68,20 +66,7 @@ const Container: React.FC<ContainerStateProps> = props => {
           <div className="main-right" onMouseMove={onMouseMove('right')} onMouseUp={onMouseUp}>
             <Tabs />
             <div className="right-main">
-              <Switch>
-                <Route path="/" exact>
-                  <Redirect to="/cluster" />
-                </Route>
-                <Route path="/cluster">
-                  <Cluster />
-                </Route>
-                <Route path="/stores">
-                  <Stores />
-                </Route>
-                <Route path="/regions">
-                  <Regions />
-                </Route>
-              </Switch>
+              <Routes />
             </div>
           </div>
         </article>
