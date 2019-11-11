@@ -2,13 +2,4 @@
   @include no-border-menu;
 
   margin-bottom: 0;
-  background: $NavBackgroundColor;
-
-  .item.item-title {
-    margin: 0 auto;
-
-    .ui.header.title {
-      color: #fff;
-    }
-  }
 }

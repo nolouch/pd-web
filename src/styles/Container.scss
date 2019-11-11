@@ -6,6 +6,7 @@
   .main {
     display: flex;
     flex: 1;
+    background: #edf1f7;
 
     .change-left-width {
       width: 2px;
@@ -17,10 +18,10 @@
       display: flex;
       flex-direction: column;
       flex: 1;
-      background: #edf1f7;
 
       .right-main {
         flex: 1;
+        padding: 1rem;
       }
     }
   }

@@ -21,7 +21,8 @@ const Container: React.FC<ContainerStateProps> = props => {
 
   useEffect(() => {
     dispatch(getSettings())
-  }, [dispatch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     setLeftWidth(props.containerMainLeftWidth)
@@ -60,7 +61,7 @@ const Container: React.FC<ContainerStateProps> = props => {
         <Nav />
         <article className="main">
           <div style={{ width: leftWidth }} className="main-left" onMouseMove={onMouseMove('left')}>
-            <Sidebar title="Sidebar" />
+            <Sidebar title="Browse" />
           </div>
           <div className="change-left-width" onMouseDown={onMouseDown} onMouseUp={onMouseUp} />
           <div className="main-right" onMouseMove={onMouseMove('right')} onMouseUp={onMouseUp}>

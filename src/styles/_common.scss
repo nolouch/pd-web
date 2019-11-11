@@ -1,5 +1,11 @@
 $NavBackgroundColor: #0074D9;
 
+@mixin VHCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin no-border-menu() {
   border: none;
   border-radius: 0;

@@ -1,2 +1,14 @@
 .PD-Cluster {
 }
+
+.PD-Cluster-Meta {
+  .ui.segment.meta-field {
+    display: flex;
+    align-items: center;
+
+    .ui.header {
+      margin-bottom: 0;
+      margin-right: 2rem;
+    }
+  }
+}
