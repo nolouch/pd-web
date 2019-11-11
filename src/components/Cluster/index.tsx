@@ -1,7 +1,9 @@
-import Meta from './Meta'
-import { useDispatch } from 'react-redux'
-import { getPDVersion } from 'api/version'
 import React, { useEffect } from 'react'
+
+import Meta from './Meta'
+import Metrics from './Metrics'
+import { getPDVersion } from 'api/version'
+import { useDispatch } from 'react-redux'
 
 const Cluster = () => {
   const dispatch = useDispatch()
@@ -13,6 +15,7 @@ const Cluster = () => {
 
   return (
     <div className="PD-Cluster">
+      <Metrics />
       <Meta />
     </div>
   )
