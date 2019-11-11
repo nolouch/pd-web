@@ -1,6 +1,6 @@
 import { Menu } from 'semantic-ui-react'
 import React from 'react'
-import Tabs from 'components/Container/tabs'
+import Tabs from 'components/Container/Tabs'
 import { shallow } from 'enzyme'
 
 describe('<Tabs />', () => {

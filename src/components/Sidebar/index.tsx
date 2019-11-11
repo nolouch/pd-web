@@ -7,7 +7,7 @@ interface PDSidebarProps {
 
 const Sidebar: React.FC<PDSidebarProps> = props => (
   <div className="PD-Sidebar">
-    <Menu as="nav" className="sidebar-menu" size="small" pointing secondary>
+    <Menu as="nav" className="sidebar-menu" size="large" pointing secondary>
       <Menu.Item name={props.title} />
     </Menu>
     {props.children}

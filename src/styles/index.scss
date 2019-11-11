@@ -1,6 +1,10 @@
 @import '../../node_modules/semantic-ui-css/semantic.min.css';
 @import 'common';
 
+.ui.menu .item.active {
+  border-color: $NavBackgroundColor !important;
+}
+
 @import 'Nav';
 @import 'Container';
 @import 'Sidebar';
