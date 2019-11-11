@@ -7,6 +7,6 @@ $NavBackgroundColor: #0074D9;
 }
 
 @mixin no-border-menu() {
-  border: none;
-  border-radius: 0;
+  border: none !important;
+  border-radius: 0 !important;
 }

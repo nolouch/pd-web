@@ -6,6 +6,7 @@ import Nav from 'components/Nav'
 import { RootState } from 'reducers'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from './Routes'
+import SideRoutes from './SideRoutes'
 import Sidebar from 'components/Sidebar'
 import Tabs from './Tabs'
 
@@ -61,7 +62,9 @@ const Container: React.FC<ContainerStateProps> = props => {
         <Nav />
         <article className="main">
           <div style={{ width: leftWidth }} className="main-left" onMouseMove={onMouseMove('left')}>
-            <Sidebar title="Browse" />
+            <Sidebar title="Browse">
+              <SideRoutes />
+            </Sidebar>
           </div>
           <div className="change-left-width" onMouseDown={onMouseDown} onMouseUp={onMouseUp} />
           <div className="main-right" onMouseMove={onMouseMove('right')} onMouseUp={onMouseUp}>
