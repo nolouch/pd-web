@@ -34,12 +34,20 @@ All test files should be placed in `src/__tests__` dir.
 
 ## How to develop
 
+**For development, you must provide a pd client as environment variable.** For example:
+
+```sh
+REACT_APP_PD_CLIENT_URL=http://localhost:32845
+```
+
+Let's start:
+
 ```sh
 git clone https://github.com/pingcap-fe/pd-web.git && cd pd-web
 
 # We recommend using yarn
 yarn
-yarn start
+REACT_APP_PD_CLIENT_URL=http://localhost:32845 BROWSER=none yarn start
 ```
 
 ## Run tests
