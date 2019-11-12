@@ -9047,6 +9047,11 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
+redux-cond@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/redux-cond/-/redux-cond-2.0.0.tgz#2dddac3cbb20cd215e9e9a371d7bac25b371a9e6"
+  integrity sha512-na+AA0fePGiG+3mohbQEa55CFmrJJ/wt2r+ZA0gA0wfmOs+hYtKp3ok/BnBpcippliPOxUGW1jhFVb4G49bzJw==
+
 redux-logger@^3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
