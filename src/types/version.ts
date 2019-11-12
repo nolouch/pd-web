@@ -4,7 +4,7 @@ export enum PDVersionTypes {
 
 export interface PDVersionAction {
   type: PDVersionTypes
-  version: string
+  version?: string
 }
 
 export interface PDVersion {

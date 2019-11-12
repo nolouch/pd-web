@@ -1,10 +1,6 @@
-import { PDVersionAction, PDVersionTypes } from 'types/version'
+import { PDVersionTypes } from 'types/version'
+import makeActionCreator from 'lib/makeActionCreator'
 
-import { ActionCreator } from 'redux'
-
-const getPDVersion: ActionCreator<PDVersionAction> = (version: string) => ({
-  type: PDVersionTypes.GET_PD_VERSION,
-  version
-})
+const getPDVersion = makeActionCreator(PDVersionTypes.GET_PD_VERSION, 'version')
 
 export { getPDVersion }
