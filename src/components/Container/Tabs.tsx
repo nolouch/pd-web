@@ -8,6 +8,7 @@ const Tabs = () => {
       <Menu.Item as={NavLink} name="Cluster" to="/cluster" activeClassName="active" />
       <Menu.Item as={NavLink} name="Stores" to="/stores" activeClassName="active" />
       <Menu.Item as={NavLink} name="Regions" to="/regions" activeClassName="active" />
+      <Menu.Item as={NavLink} name="KeyVis" to="/keyvis" activeClassName="active" />
     </Menu>
   )
 }

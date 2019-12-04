@@ -4,6 +4,7 @@ import Cluster from 'components/Cluster'
 import React from 'react'
 import Regions from 'components/Regions'
 import Stores from 'components/Stores'
+import KeyVis from 'components/KeyVis'
 
 const Routes = () => (
   <Switch>
@@ -18,6 +19,9 @@ const Routes = () => (
     </Route>
     <Route path="/regions">
       <Regions />
+    </Route>
+    <Route path="/keyvis">
+      <KeyVis />
     </Route>
   </Switch>
 )
