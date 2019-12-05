@@ -1,4 +1,4 @@
-import { HeatmapData, HeatmapRange } from 'components/KeyVis/components/heatmap'
+import { HeatmapData, HeatmapRange } from 'components/KeyVis/heatmap'
 import dummyData from 'fixtures/dummydata.json'
 
 export const APIURL = 'http://172.16.4.4:2888/pd/apis/keyvisual/v1'
