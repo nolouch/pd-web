@@ -179,7 +179,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
       return d3.zoomIdentity
         .translate(
           Math.floor(transform.x - (dragLeft - dragRight) * bounceRatio),
-          Math.floor(transform.y - (dragTop - dragBottom) * bounceRatio),
+          Math.floor(transform.y - (dragTop - dragBottom) * bounceRatio)
         )
         .scale(transform.k)
     }
@@ -197,7 +197,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
 
     function zoomed() {
       if (tooltipStatus.type == 'hover') tooltipStatus = { type: 'hide' }
-      if (d3.event.sourceEvent.type == 'mousemove') {
+      if (d3.event.sourceEvent && d3.event.sourceEvent.type == 'mousemove') {
         zoomTransform = constrainBoucing(d3.event.transform)
       } else {
         zoomTransform = constrainHard(d3.event.transform)

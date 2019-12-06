@@ -1,10 +1,43 @@
 // @ts-nocheck
 import * as d3 from 'd3'
 
+// const colorTheme = d3.interpolateRgbBasis(
+//   ['#f5e070', '#ee9e1b', '#dc516c', '#f67bb1', '#522172', '#3687c5', '#38a2a7'].reverse()
+// )
+// const colorTheme = d3.interpolateRgbBasis(
+//   ['#fed98f','#ff8c30','#f11502','#c2116a','#8703ac']
+// )
+// const colorTheme = d3.interpolateRgbBasis(['#e7e9ec', '#253966'])
+const colorTheme = d3.interpolateRgbBasis([
+  '#000000',
+  '#080808',
+  '#090909',
+  '#101010',
+  '#111111',
+  '#121212',
+  '#131313',
+  '#141414',
+  '#151515',
+  '#202020',
+  '#410c74',
+  '#72067b',
+  '#b00f53',
+  '#fcc734',
+  '#fbfc43',
+  '#ffffb0'
+])
+// const colorTheme = d3.interpolateRgbBasis(
+//   ["#202020","#410c74","#72067b","#b00f53","#fcc734","#fbfc43","#ffffb0"]
+// )
+// const colorTheme = d3.interpolateRgbBasis(
+//   ['white','#F9F9D4', '#f79a6e', '#e75f6a', '#b13579', '#532874', '#4e2872',  '#060608'].reverse()
+// )
+
 export function createBuffer(values: number[][], brightness: number) {
   const maxValue = d3.max(values.map(array => d3.max(array))) / brightness
+  // const logScale = calcLogScale(3, maxValue)
   const logScale = d3.scaleSymlog().domain([0, maxValue])
-  const colorScale = d3.scaleSequential(d => d3.interpolateInferno(logScale(d)))
+  const colorMap = d => colorTheme(logScale(d))
 
   const valueWidth = values.length
   const valueHeight = (values[0] || []).length
@@ -21,12 +54,12 @@ export function createBuffer(values: number[][], brightness: number) {
     const pixel = i / 4
     const x = pixel % valueWidth
     const y = Math.floor(pixel / valueWidth)
-    const color = colorScale(values[x][y])
+    const color = d3.color(colorMap(values[x][y]))
 
-    imageData[i] = parseInt(color.substring(1, 3), 16) // R
-    imageData[i + 1] = parseInt(color.substring(3, 5), 16) // G
-    imageData[i + 2] = parseInt(color.substring(5, 7), 16) // B
-    imageData[i + 3] = 255 // A
+    imageData[i] = color.r
+    imageData[i + 1] = color.g
+    imageData[i + 2] = color.b
+    imageData[i + 3] = 255 // Alpha
   }
 
   ctx.putImageData(sourceImageData, 0, 0)
