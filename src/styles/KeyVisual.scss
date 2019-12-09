@@ -1,0 +1,20 @@
+.PD-KeyVis {
+  font-family: 'Poppins';
+  font-size: 14px;
+
+  .tooltip {
+    padding: 10px;
+    color: #eee;
+    background-color: #333;
+    box-shadow: 5px 5px 10px rgba(black, .5);
+
+    .value {
+        margin: 0;
+        text-align: center;
+        padding: 8px;
+        width: fit-content;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+  }
+}

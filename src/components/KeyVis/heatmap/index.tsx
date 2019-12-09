@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { RefObject, useRef, useCallback, useEffect } from 'react'
 import * as d3 from 'd3'
 import _ from 'lodash'
@@ -11,7 +10,7 @@ export type HeatmapRange = {
   endKey?: string
 }
 
-export type KeyAxisEntry = {
+export type KeyAxisEntry = {  
   key: string
   labels: string[]
 }

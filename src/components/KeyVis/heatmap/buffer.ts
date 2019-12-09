@@ -1,44 +1,7 @@
-// @ts-nocheck
 import * as d3 from 'd3'
+import { ColorScale } from './color'
 
-// const colorTheme = d3.interpolateRgbBasis(
-//   ['#f5e070', '#ee9e1b', '#dc516c', '#f67bb1', '#522172', '#3687c5', '#38a2a7'].reverse()
-// )
-// const colorTheme = d3.interpolateRgbBasis(
-//   ['#fed98f','#ff8c30','#f11502','#c2116a','#8703ac']
-// )
-// const colorTheme = d3.interpolateRgbBasis(['#e7e9ec', '#253966'])
-const colorTheme = d3.interpolateRgbBasis([
-  '#000000',
-  '#080808',
-  '#090909',
-  '#101010',
-  '#111111',
-  '#121212',
-  '#131313',
-  '#141414',
-  '#151515',
-  '#202020',
-  '#410c74',
-  '#72067b',
-  '#b00f53',
-  '#fcc734',
-  '#fbfc43',
-  '#ffffb0'
-])
-// const colorTheme = d3.interpolateRgbBasis(
-//   ["#202020","#410c74","#72067b","#b00f53","#fcc734","#fbfc43","#ffffb0"]
-// )
-// const colorTheme = d3.interpolateRgbBasis(
-//   ['white','#F9F9D4', '#f79a6e', '#e75f6a', '#b13579', '#532874', '#4e2872',  '#060608'].reverse()
-// )
-
-export function createBuffer(values: number[][], brightness: number) {
-  const maxValue = d3.max(values.map(array => d3.max(array))) / brightness
-  // const logScale = calcLogScale(3, maxValue)
-  const logScale = d3.scaleSymlog().domain([0, maxValue])
-  const colorMap = d => colorTheme(logScale(d))
-
+export function createBuffer(values: number[][], colorScale: ColorScale) {
   const valueWidth = values.length
   const valueHeight = (values[0] || []).length
   const canvas = d3
@@ -54,7 +17,7 @@ export function createBuffer(values: number[][], brightness: number) {
     const pixel = i / 4
     const x = pixel % valueWidth
     const y = Math.floor(pixel / valueWidth)
-    const color = d3.color(colorMap(values[x][y]))
+    const color = d3.color(colorScale(values[x][y]))
 
     imageData[i] = color.r
     imageData[i + 1] = color.g

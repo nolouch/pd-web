@@ -1,9 +1,9 @@
-// @ts-nocheck
 import * as d3 from 'd3'
 import _ from 'lodash'
 import { HeatmapRange, HeatmapData, KeyAxisEntry } from '.'
 import { createBuffer } from './buffer'
 import { labelAxisGroup } from './label-axis'
+import { getColorTheme, ColorTheme } from './color'
 
 const margin = {
   top: 25,
@@ -14,7 +14,7 @@ const margin = {
 
 const tooltipSize = {
   width: 400,
-  height: 100
+  height: 200
 }
 
 const tooltipOffset = {
@@ -36,6 +36,7 @@ type TooltipStatus =
 export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
   var data: HeatmapData
   var brightness = 1
+  var colorTheme: ColorTheme
   var bufferCanvas: HTMLCanvasElement
   var zoomTransform = d3.zoomIdentity
   var tooltipStatus: TooltipStatus = { type: 'hide' }
@@ -46,15 +47,21 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
   var canvasHeight = 0
   const MSAARatio = 4
 
+  function updateBuffer() {
+    const maxValue = d3.max(data.values.map(array => d3.max(array))) || 0
+    colorTheme = getColorTheme(maxValue, brightness)
+    bufferCanvas = createBuffer(data.values, colorTheme.backgroud)
+  }
+
   heatmapChart.data = function(newData: HeatmapData) {
     data = newData
-    bufferCanvas = createBuffer(data.values, brightness)
+    updateBuffer()
     tooltipStatus = { type: 'hide' }
   }
 
   heatmapChart.brightness = function(newBrightness: number) {
     brightness = newBrightness
-    bufferCanvas = createBuffer(data.values, brightness)
+    updateBuffer()
   }
 
   heatmapChart.size = function(newWidth, newHeight) {
@@ -382,53 +389,62 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
           .enter()
           .append('div')
           .style('position', 'absolute')
-          .style('background-color', '#333')
-          .style('color', '#eee')
-          .style('padding', '5px')
           .style('width', tooltipSize.width + 'px')
           .style('height', tooltipSize.height + 'px')
+          .classed('tooltip', true)
           .merge(tooltipDiv)
           .style('left', tooltipX + 'px')
           .style('top', tooltipY + 'px')
 
         const timeIdx = Math.floor(tooltipStatus.x)
         const keyIdx = Math.floor(tooltipStatus.y)
+        const value = data.values[timeIdx][keyIdx]
 
-        // FIXME: refactor
-        const tooltipData = [
-          {
-            name: 'Value',
-            value: data.values[timeIdx][keyIdx]
-          },
-          {
-            name: 'Start Time',
-            value: d3.timeFormat('%B %d, %Y %H:%M:%S')(new Date(data.timeAxis[timeIdx] * 1000))
-          },
-          {
-            name: 'End Time',
-            value: data.timeAxis[timeIdx + 1]
-              ? d3.timeFormat('%B %d, %Y %H:%M:%S')(new Date(data.timeAxis[timeIdx + 1] * 1000))
-              : ''
-          },
-          {
-            name: 'Start Key',
-            value: data.keyAxis[keyIdx].key
-          },
-          {
-            name: 'End Key',
-            value: data.keyAxis[keyIdx + 1] ? data.keyAxis[keyIdx + 1].key : ''
-          }
-        ]
-
-        const tooltipEntries = tooltipDiv.selectAll('p').data(tooltipData)
-        tooltipEntries
+        let valueText = tooltipDiv.selectAll('p.value').data([null])
+        valueText = valueText
           .enter()
           .append('p')
-          .style('font-size', '12px')
-          .merge(tooltipEntries)
-          .text(d => d.value)
+          .classed('value', true)
+          .merge(valueText)
+          .text(value)
+          .style('color', colorTheme.label(value))
+          .style('background-color', colorTheme.backgroud(value))
 
-        tooltipEntries.exit().remove()
+        // // FIXME: refactor
+        // const tooltipData = [
+        //   {
+        //     name: 'Value',
+        //     value: data.values[timeIdx][keyIdx]
+        //   },
+        //   {
+        //     name: 'Start Time',
+        //     value: d3.timeFormat('%B %d, %Y %H:%M:%S')(new Date(data.timeAxis[timeIdx] * 1000))
+        //   },
+        //   {
+        //     name: 'End Time',
+        //     value: data.timeAxis[timeIdx + 1]
+        //       ? d3.timeFormat('%B %d, %Y %H:%M:%S')(new Date(data.timeAxis[timeIdx + 1] * 1000))
+        //       : ''
+        //   },
+        //   {
+        //     name: 'Start Key',
+        //     value: data.keyAxis[keyIdx].key
+        //   },
+        //   {
+        //     name: 'End Key',
+        //     value: data.keyAxis[keyIdx + 1] ? data.keyAxis[keyIdx + 1].key : ''
+        //   }
+        // ]
+
+        // const tooltipEntries = tooltipDiv.selectAll('p').data(tooltipData)
+        // tooltipEntries
+        //   .enter()
+        //   .append('p')
+        //   .style('font-size', '12px')
+        //   .merge(tooltipEntries)
+        //   .text(d => d.value)
+
+        // tooltipEntries.exit().remove()
         tooltipDiv.exit().remove()
       }
     }
