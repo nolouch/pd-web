@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Heatmap, HeatmapData } from './heatmap'
-import { fetchHeatmap, fetchDummyHeatmap } from 'api/keyvis'
+import { fetchDummyHeatmap } from 'api/keyvis'
 
 import ToolBar from './ToolBar'
 
@@ -16,7 +16,7 @@ export const HeatmapPage: React.FunctionComponent = props => {
     load()
   })
 
-  return <>{heatmapData && <Heatmap data={heatmapData} onBrush={range => console.log(range)} />}</>
+  return heatmapData ? <Heatmap data={heatmapData} onBrush={range => console.log(range)} /> : <></>
 }
 
 const KeyVis = () => (
