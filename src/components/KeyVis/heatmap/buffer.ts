@@ -1,9 +1,11 @@
 import * as d3 from 'd3'
+
 import { ColorScale } from './color'
 
 export function createBuffer(values: number[][], colorScale: ColorScale) {
   const valueWidth = values.length
-  const valueHeight = (values[0] || []).length
+  const valueHeight = values[0].length || 0
+
   const canvas = d3
     .create('canvas')
     .attr('width', valueWidth)
@@ -17,12 +19,19 @@ export function createBuffer(values: number[][], colorScale: ColorScale) {
     const pixel = i / 4
     const x = pixel % valueWidth
     const y = Math.floor(pixel / valueWidth)
-    const color = d3.color(colorScale(values[x][y]))
 
-    imageData[i] = color.r
-    imageData[i + 1] = color.g
-    imageData[i + 2] = color.b
-    imageData[i + 3] = 255 // Alpha
+    let color = d3.color(colorScale(values[x][y]))
+
+    if (color) {
+      color = color.rgb()
+
+      imageData[i] = color.r
+      imageData[i + 1] = color.g
+      imageData[i + 2] = color.b
+      imageData[i + 3] = 255 // Alpha
+    } else {
+      continue
+    }
   }
 
   ctx.putImageData(sourceImageData, 0, 0)

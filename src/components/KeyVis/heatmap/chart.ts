@@ -48,7 +48,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
   const MSAARatio = 4
 
   function updateBuffer() {
-    const maxValue = d3.max(data.values.map(array => d3.max(array))) || 0
+    const maxValue = d3.max(data.values.map(array => d3.max(array)!)) || 0
     colorTheme = getColorTheme(maxValue, brightness)
     bufferCanvas = createBuffer(data.values, colorTheme.backgroud)
   }
@@ -68,7 +68,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
     const newCanvasWidth = newWidth - margin.left - margin.right
     const newCanvasHeight = newHeight - margin.top - margin.bottom
     // Sync transform on resize
-    if (canvasWidth != 0 && canvasHeight != 0) {
+    if (canvasWidth !== 0 && canvasHeight !== 0) {
       zoomTransform = d3.zoomIdentity
         .translate((zoomTransform.x * newCanvasWidth) / canvasWidth, (zoomTransform.y * newCanvasHeight) / canvasHeight)
         .scale(zoomTransform.k)
@@ -134,13 +134,15 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
     const xAxis = d3
       .axisBottom(xScale)
       .tickFormat(idx =>
-        data.timeAxis[idx] !== undefined ? d3.timeFormat('%B %d, %Y %H:%M:%S')(new Date(data.timeAxis[idx] * 1000)) : ''
+        data.timeAxis[idx as number] !== undefined
+          ? d3.timeFormat('%B %d, %Y %H:%M:%S')(new Date(data.timeAxis[idx as number] * 1000))
+          : ''
       )
       .ticks(width / 270)
 
     const yAxis = d3
       .axisRight(yScale)
-      .tickFormat(idx => (data.keyAxis[idx] !== undefined ? data.keyAxis[idx].key : ''))
+      .tickFormat(idx => (data.keyAxis[idx as number] !== undefined ? data.keyAxis[idx as number].key : ''))
       .ticks(10)
 
     const labelAxis = labelAxisGroup(data.keyAxis, yScale)
@@ -203,8 +205,8 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
     }
 
     function zoomed() {
-      if (tooltipStatus.type == 'hover') tooltipStatus = { type: 'hide' }
-      if (d3.event.sourceEvent && d3.event.sourceEvent.type == 'mousemove') {
+      if (tooltipStatus.type === 'hover') tooltipStatus = { type: 'hide' }
+      if (d3.event.sourceEvent && d3.event.sourceEvent.type === 'mousemove') {
         zoomTransform = constrainBoucing(d3.event.transform)
       } else {
         zoomTransform = constrainHard(d3.event.transform)
@@ -222,11 +224,11 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
       axis.on('mousemove', mousemove)
       axis.on('mouseout', hideTooltips)
       function mousemove() {
-        if (tooltipStatus.type == 'pin') return
+        if (tooltipStatus.type === 'pin') return
 
         const mouseCanvasOffset = d3.mouse(canvas.node())
 
-        if (d3.event.movementX == 0 && d3.event.movementY == 0) return
+        if (d3.event.movementX === 0 && d3.event.movementY === 0) return
 
         if (
           mouseCanvasOffset[0] < 0 ||
@@ -251,7 +253,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
     }
 
     function hideTooltips() {
-      if (tooltipStatus.type == 'hover') {
+      if (tooltipStatus.type === 'hover') {
         tooltipStatus = { type: 'hide' }
         render()
       }
@@ -262,7 +264,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
     function clicked() {
       if (d3.event.defaultPrevented) return // zoomed
 
-      if (tooltipStatus.type == 'pin') {
+      if (tooltipStatus.type === 'pin') {
         tooltipStatus = { type: 'hide' }
         render()
         return
@@ -318,7 +320,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
 
         const selection = d3.event.selection
         if (selection) {
-          brush.clear(brushSvg)
+          brush.move(brushSvg, null)
           const domainTopLeft = zoomTransform.invert(selection[0])
           const domainBottomRight = zoomTransform.invert(selection[1])
           const startTime = data.timeAxis[Math.round(xScale.invert(domainTopLeft[0]))]
@@ -369,7 +371,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
     }
 
     function renderTooltip() {
-      if (tooltipStatus.type == 'hide') {
+      if (tooltipStatus.type === 'hide') {
         tooltips.selectAll('div').remove()
       } else {
         const rescaleX = zoomTransform.rescaleX(xScale)
@@ -450,7 +452,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
     }
 
     function renderCross() {
-      if (tooltipStatus.type == 'pin') {
+      if (tooltipStatus.type === 'pin') {
         const rescaleX = zoomTransform.rescaleX(xScale)
         const rescaleY = zoomTransform.rescaleY(yScale)
         const canvasOffset = [rescaleX(tooltipStatus.x) * MSAARatio, rescaleY(tooltipStatus.y) * MSAARatio]

@@ -1,4 +1,5 @@
 import { HeatmapData, HeatmapRange } from 'components/KeyVis/heatmap'
+
 import dummyData from 'fixtures/dummydata.json'
 
 export const APIURL = 'http://172.16.4.4:2888/pd/apis/keyvisual/v1'
@@ -8,11 +9,23 @@ export async function fetchDummyHeatmap() {
 }
 
 export async function fetchHeatmap(selection: HeatmapRange) {
-  var url = `${APIURL}/heatmaps?type=write_bytes`
-  if (selection.startTime) url += `&startTime=${selection.startTime}`
-  if (selection.endTime) url += `&endTime=${selection.endTime}`
-  if (selection.startKey) url += `&startKey=${selection.startKey}`
-  if (selection.endKey) url += `&endKey=${selection.endKey}`
+  let url = `${APIURL}/heatmaps?type=write_bytes`
+
+  if (selection.startTime) {
+    url += `&startTime=${selection.startTime}`
+  }
+
+  if (selection.endTime) {
+    url += `&endTime=${selection.endTime}`
+  }
+
+  if (selection.startKey) {
+    url += `&startKey=${selection.startKey}`
+  }
+
+  if (selection.endKey) {
+    url += `&endKey=${selection.endKey}`
+  }
 
   const data: HeatmapData = await sendRequest(url, 'get')
   data.timeAxis = data.timeAxis.map(timestamp => timestamp * 1000)

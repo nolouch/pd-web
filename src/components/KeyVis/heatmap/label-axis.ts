@@ -78,15 +78,15 @@ function labelAxis(group) {
 }
 
 function scaleLabelGroup(group: LabelGroup<KeyLabel>, originScale, rescale): LabelGroup<ScaledLabel> {
-  var labels: ScaledLabel[] = []
-  var lastKeyIdx = 0
-  var mergedSmallLabel
+  let labels: ScaledLabel[] = []
+  let lastKeyIdx = 0
+  let mergedSmallLabel
 
   for (const label of group.labels) {
     const canvasStart = originScale.range()[0]
     const canvasEnd = originScale.range()[1]
-    const startKeyIdx = _.findIndex(group.keyAxis, key => key.key == label.start, lastKeyIdx)
-    const endKeyIdx = _.findIndex(group.keyAxis, key => key.key == label.end, lastKeyIdx)
+    const startKeyIdx = _.findIndex(group.keyAxis, key => key.key === label.start, lastKeyIdx)
+    const endKeyIdx = _.findIndex(group.keyAxis, key => key.key === label.end, lastKeyIdx)
     const startPos = rescale(startKeyIdx)
     const endPos = rescale(endKeyIdx)
     const commonStart = Math.max(startPos, canvasStart)
@@ -95,7 +95,7 @@ function scaleLabelGroup(group: LabelGroup<KeyLabel>, originScale, rescale): Lab
 
     const mergeWidth = 3
 
-    if (mergedSmallLabel != null) {
+    if (mergedSmallLabel) {
       if (
         mergedSmallLabel.end - mergedSmallLabel.start >= mergeWidth ||
         commonStart - mergedSmallLabel.end > mergeWidth

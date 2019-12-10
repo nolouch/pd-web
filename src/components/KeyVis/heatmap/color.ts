@@ -32,20 +32,17 @@ const colorTheme = d3.interpolateRgbBasis([
 //   ['white','#F9F9D4', '#f79a6e', '#e75f6a', '#b13579', '#532874', '#4e2872',  '#060608'].reverse()
 // )
 
-export type Color = {
-  r: number
-  g: number
-  b: number
+export type ColorScale = (n: number) => d3.RGBColor | d3.HSLColor
+export type ColorTheme = {
+  backgroud: ColorScale
+  label: ColorScale
 }
 
-export type ColorScale = (n: number) => Color
-export type ColorTheme = { backgroud: ColorScale; label: ColorScale }
-
 export function getColorTheme(maxValue: number, brightness: number): ColorTheme {
-  const logScale = d3.scaleSymlog().domain([0, maxValue / brightness])
-  const backgroudColorScale = (d: number) => d3.color(colorTheme(logScale(d)))
+  const logScale = (d3 as any).scaleSymlog().domain([0, maxValue / brightness])
+  const backgroudColorScale = (d: number) => d3.color(colorTheme(logScale(d)))!
   const labelColorScale = (d: number) =>
-    d3.hsl(backgroudColorScale(d)).l > 0.5 ? d3.color('black') : d3.color('white')
+    d3.hsl(backgroudColorScale(d)).l > 0.5 ? d3.color('black')! : d3.color('white')!
 
   return {
     backgroud: backgroudColorScale,
