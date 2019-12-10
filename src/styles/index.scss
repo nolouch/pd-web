@@ -1,6 +1,8 @@
 @import '../../node_modules/semantic-ui-css/semantic.min.css';
 @import 'common';
 
+@import "fonts/fonts.scss";
+
 @import 'Nav';
 @import 'Container';
 @import 'Sidebar';
@@ -8,5 +10,3 @@
 @import 'Stores';
 @import 'Regions';
 @import 'KeyVisual';
-
-@import "fonts/fonts.css";
