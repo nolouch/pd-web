@@ -21,7 +21,7 @@ const Routes = () => (
       <Regions />
     </Route>
     <Route path="/keyvis">
-      <KeyVis />
+      {/* <KeyVis /> */}
     </Route>
   </Switch>
 )

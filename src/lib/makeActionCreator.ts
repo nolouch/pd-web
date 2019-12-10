@@ -1,9 +1,8 @@
 import { Action } from 'redux'
 import { PDStoresTypes } from 'types/stores'
-import { PDVersionTypes } from 'types/version'
 import { SettingTypes } from 'types/setting'
 
-type PDActionType = SettingTypes | PDVersionTypes | PDStoresTypes
+type PDActionType = SettingTypes | PDStoresTypes
 interface PDAction extends Action<PDActionType> {
   [key: string]: any
 }
