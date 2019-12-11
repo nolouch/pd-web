@@ -9,7 +9,7 @@ export type HeatmapRange = {
   endKey?: string
 }
 
-export type KeyAxisEntry = {  
+export type KeyAxisEntry = {
   key: string
   labels: string[]
 }
@@ -17,7 +17,13 @@ export type KeyAxisEntry = {
 export type HeatmapData = {
   timeAxis: number[]
   keyAxis: KeyAxisEntry[]
-  values: number[][]
+  data: {
+    integration: number[][],
+    written_bytes: number[][],
+    read_bytes: number[][],
+    written_keys: number[][],
+    read_keys: number[][],
+  },
 }
 
 type HeatmapProps = {

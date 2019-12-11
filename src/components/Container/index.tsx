@@ -4,7 +4,7 @@ import { getSettings, setContainerMainLeftWidth } from 'api/setting'
 
 import Nav from 'components/Nav'
 import { RootState } from 'reducers'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 import Routes from './Routes'
 import SideRoutes from './SideRoutes'
 import Sidebar from 'components/Sidebar'

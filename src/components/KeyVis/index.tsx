@@ -14,7 +14,7 @@ export const HeatmapPage: React.FunctionComponent = props => {
       if (!heatmapData) setHeatmapData(await fetchDummyHeatmap())
     }
     load()
-  })
+  }, [heatmapData])
 
   return heatmapData ? <Heatmap data={heatmapData} onBrush={range => console.log(range)} /> : <></>
 }

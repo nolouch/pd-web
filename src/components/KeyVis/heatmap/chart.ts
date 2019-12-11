@@ -47,10 +47,13 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
   var canvasHeight = 0
   const MSAARatio = 4
 
+  // FIXME: Mutable tag
+  const tag = "written_bytes"
+
   function updateBuffer() {
-    const maxValue = d3.max(data.values.map(array => d3.max(array)!)) || 0
+    const maxValue = d3.max(data.data[tag].map(array => d3.max(array)!)) || 0
     colorTheme = getColorTheme(maxValue, brightness)
-    bufferCanvas = createBuffer(data.values, colorTheme.backgroud)
+    bufferCanvas = createBuffer(data.data[tag], colorTheme.backgroud)
   }
 
   heatmapChart.data = function(newData: HeatmapData) {
@@ -135,7 +138,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
       .axisBottom(xScale)
       .tickFormat(idx =>
         data.timeAxis[idx as number] !== undefined
-          ? d3.timeFormat('%B %d, %Y %H:%M:%S')(new Date(data.timeAxis[idx as number] * 1000))
+          ? d3.timeFormat('%B %d, %Y %H:%M:%S')(new Date(data.timeAxis[idx as number]))
           : ''
       )
       .ticks(width / 270)
@@ -400,7 +403,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
 
         const timeIdx = Math.floor(tooltipStatus.x)
         const keyIdx = Math.floor(tooltipStatus.y)
-        const value = data.values[timeIdx][keyIdx]
+        const value = data.data[tag][timeIdx][keyIdx]
 
         let valueText = tooltipDiv.selectAll('p.value').data([null])
         valueText = valueText
@@ -416,7 +419,7 @@ export function heatmapChart(onBrush: (range: HeatmapRange) => void) {
         // const tooltipData = [
         //   {
         //     name: 'Value',
-        //     value: data.values[timeIdx][keyIdx]
+        //     value: data.data[tag][timeIdx][keyIdx]
         //   },
         //   {
         //     name: 'Start Time',
