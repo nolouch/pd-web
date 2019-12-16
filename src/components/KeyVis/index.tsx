@@ -20,7 +20,7 @@ export const HeatmapPage: React.FunctionComponent = props => {
 }
 
 const KeyVis = () => (
-  <div className="PD-KeyVis">
+  <div className="PD-KeyVis"  style={{width: '100%', height: 'calc(100vh - 240px)'}}>
     <ToolBar />
     <HeatmapPage />
   </div>
